@@ -1,0 +1,80 @@
+
+
+
+
+body{margin: 0 ;padding: 0;background-color: var(--bg-color);
+background-color: #F4F3F0;
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+    .mode-selection{
+        margin-bottom: 35px;
+        padding: 10px;
+    }
+    .custom-select-container {
+        position: relative;
+        margin-top: -65px; /* Yukarı kaydırma */
+        margin-left: 340px; /* Sola kaydırma */
+        margin-right: 50px; /* Sağa kaydırma */
+    }
+    .custom-select {
+        width: 130px;
+        padding: 5px 8px;
+        -moz-appearance: none;
+        border: none;
+        font-size: 16px;
+        border-radius: 4px;
+        background-color: #155615;
+        color: white;
+        appearance: none;
+        border-radius: 40px;
+        background-image: linear-gradient(45deg, transparent 50%, white 50%), linear-gradient(135deg, white 50%, transparent 50%);
+        background-position: calc(100% - 20px) center, calc(100% - 15px) center;
+        background-size: 10px 10px, 10px 10px;
+        background-repeat: no-repeat;
+        margin-bottom: 10px;
+    }
+  
+    
+    .difficulty {
+        margin-bottom: 10px;
+        padding: 30px;
+        margin-left: 150px; 
+        font-size: 22px;
+    }
+.player-names{
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    color: #155615;
+  
+}
+    label{
+        margin-bottom: 10px;
+        padding: 10px;
+        font-size: 25px;
+        color: #155615;
+    }
+    .playerX{
+      margin-bottom: 10px;
+      padding: 10px;
+      color: #155615;
+    }
+    input{
+        font-size: 15px;
+        color: #155615;
+    }
+    button{
+        font-size: 15px;
+        color: #155615;
+    }
