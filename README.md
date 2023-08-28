@@ -27,3 +27,9 @@ Notes:
 Pay attention to the usage of localStorage. It is used to store player names and scores.
 The minimaxWithAlphaBetaPruning function incorporates the Minimax algorithm with Alpha-Beta pruning, which helps the AI make optimal moves. This algorithm enhances the AI's gameplay.
 The game features buttons and links that navigate through different game modes and player name selection screens.
+
+<img width="1074" alt="Ekran Resmi 2023-08-28 08 55 59" src="https://github.com/mustafagodel/xoxgame/assets/89693873/7ea469e5-5f33-44ac-b3c9-7a1e49a16527">
+
+<img width="1074" alt="Ekran Resmi 2023-08-28 08 57 11" src="https://github.com/mustafagodel/xoxgame/assets/89693873/bac0631b-a279-4e00-91be-2f94682c9458">
+
+<img width="1074" alt="Ekran Resmi 2023-08-28 08 58 06" src="https://github.com/mustafagodel/xoxgame/assets/89693873/a1829adc-c90c-4ebd-85c3-e45ac1ea2f7e">
