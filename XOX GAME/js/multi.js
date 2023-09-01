@@ -13,13 +13,12 @@ const comb = [
 const playerXScoreElement = document.getElementById('playerXScore');
 const playerOScoreElement = document.getElementById('playerOScore');
 
-// localStorage'dan isimleri ve puanları al
+
 const playerXName = localStorage.getItem('playerXName');
 const playerOName = localStorage.getItem('playerOName');
 let playerXScore = parseInt(localStorage.getItem('playerXScore')) || 0;
 let playerOScore = parseInt(localStorage.getItem('playerOScore')) || 0;
 
-// İsimleri ve puanları kullanarak oyun sayfasını güncelle
 playerXScoreElement.textContent = `${playerXName}: ${playerXScore}`;
 playerOScoreElement.textContent = `${playerOName}: ${playerOScore}`;
 
@@ -54,7 +53,7 @@ const endGame = (draw) => {
             if (playerOScore >= 5) {
                 resultText.innerText = `${playerOName} Wins the Game!`;
                 endFinalGame();
-                return; // Exit the function to prevent further processing
+                return; 
             }
         } else {
             playerXScore++;
@@ -62,16 +61,16 @@ const endGame = (draw) => {
             if (playerXScore >= 5) {
                 resultText.innerText = `${playerXName} Wins the Game!`;
                 endFinalGame();
-                return; // Exit the function to prevent further processing
+                return; 
             }
         }
     }
     result.classList.add('show');
-    // Kazanan belirlendikten sonra sırayı değiştirme işlemini kaldırın
+ 
 };
 
 const endFinalGame = () => {
-    let winnerName = ''; // Variable to store the winner's name
+    let winnerName = '';
     if (playerXScore >= 5) {
         winnerName = playerXName;
         resultText.innerText = `${winnerName} Wins the Game!`;

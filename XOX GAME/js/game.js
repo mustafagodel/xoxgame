@@ -78,42 +78,31 @@ const endGame = (draw) => {
         }
     }
     result.classList.add('show');
- 
+   
 };
 
-
-
-
 const endFinalGame = () => {
+    setTimeout(() => {
+        playerXScore = 0;
+        playerOScore = 0;
+        playerXScoreElement.textContent = `${playerXName}: ${playerXScore}`;
+        playerOScoreElement.textContent = `${playerOName}: ${playerOScore}`;
+        resetGame();
+        startGame();
+    }, 2000);
+
     let winnerName = '';
     if (playerXScore >= 5) {
         winnerName = playerXName;
-        resultText.innerText = `${winnerName} Wins the Game!`;
-        result.classList.add('show');
     } else if (playerOScore >= 5) {
         winnerName = playerOName;
-        resultText.innerText = `${winnerName} Wins the Game!`;
-        result.classList.add('show');
     }
 
     if (winnerName !== '') {
-        setTimeout(() => {
-            playerXScore = 0;
-            playerOScore = 0;
-            playerXScoreElement.textContent = `${playerXName}: ${playerXScore}`;
-            playerOScoreElement.textContent = `${playerOName}: ${playerOScore}`;
-            
-            // Reset local storage values here
-            localStorage.setItem('playerXScore', playerXScore);
-            localStorage.setItem('playerOScore', playerOScore);
-
-            resetGame();
-            startGame();
-        }, 2000);
+        resultText.innerText = `${winnerName} Wins the Game!`;
+        result.classList.add('show');
     }
 };
-
-
 
 
 
@@ -178,85 +167,39 @@ else{
 
 startGame();
 restartButton.addEventListener('click', startGame);
-const minimaxWithAlphaBetaPruning = (board, player, alpha, beta) => {
-    if (win(x_class)) {
-        return { score: 0.1};
-    }
-    if (win(o_class)) {
-        return { score: 0.1};
-    }
-    if (isTie()) {
-        return { score: 0 };
-    }
-
-    let bestScore, bestMove;
-    if (player === o_class) {
-        bestScore = -Infinity;
-        for (let i = 0; i < board.length; i++) {
-            if (!board[i].classList.contains(x_class) && !board[i].classList.contains(o_class)) {
-                board[i].classList.add(player);
-                let score = minimaxWithAlphaBetaPruning([...board], x_class, alpha, beta).score;
-                board[i].classList.remove(player);
-                if (score > bestScore) {
-                    bestScore = score;
-                    bestMove = i;
-                }
-                alpha = Math.max(alpha, bestScore);
-                if (beta <= alpha) {
-                    break;
-                }
-            }
-        }
-    } else {
-        bestScore = Infinity;
-        for (let i = 0; i < board.length; i++) {
-            if (!board[i].classList.contains(x_class) && !board[i].classList.contains(o_class)) {
-                board[i].classList.add(player);
-                let score = minimaxWithAlphaBetaPruning([...board], o_class, alpha, beta).score;
-                board[i].classList.remove(player);
-                if (score < bestScore) {
-                    bestScore = score;
-                    bestMove = i;
-                }
-                beta = Math.min(beta, bestScore);
-                if (beta <= alpha) {
-                    break;
-                }
-            }
-        }
-    }
-    return { score: bestScore, index: bestMove };
-};
 const aiMove = () => {
     const emptyCells = [...cells].filter(cell => !cell.classList.contains(x_class) && !cell.classList.contains(o_class));
     if (emptyCells.length === 0) return;
-    if(playerOName=='Computer'){
-    const bestMoveIndex = minimaxWithAlphaBetaPruning([...cells], o_class, -2, 2).index;  
-    const cell = cells[bestMoveIndex];
-    placeMark(cell, o_class);
     
+    if (playerOName == 'Computer') {
+        const randomIndex = Math.floor(Math.random() * emptyCells.length);
+        const randomCell = emptyCells[randomIndex];
+        placeMark(randomCell, o_class);
+
         if (win(o_class)) {
             endGame(false);
         } else if (isTie()) {
             endGame(true);
         } else {
+            swapTurn2();
             placeHover();
         }
-    }else{
-    const bestMoveIndex = minimaxWithAlphaBetaPruning([...cells], x_class, -2, 2).index; 
-    const cell = cells[bestMoveIndex];
-    placeMark(cell, x_class);
-    
-    if (win(x_class)) {
-        endGame(false);
-    } else if (isTie()) {
-        endGame(true);
     } else {
+        const randomIndex = Math.floor(Math.random() * emptyCells.length);
+        const randomCell = emptyCells[randomIndex];
+        placeMark(randomCell, x_class);
 
-        placeHover();
-    }
+        if (win(x_class)) {
+            endGame(false);
+        } else if (isTie()) {
+            endGame(true);
+        } else {
+            swapTurn2();
+            placeHover();
+        }
     }
 };
+
 
 
 

@@ -169,10 +169,10 @@ startGame();
 restartButton.addEventListener('click', startGame);
 const minimaxWithAlphaBetaPruning = (board, player, alpha, beta) => {
     if (win(x_class)) {
-        return { score: 0.2};
+        return { score: -2};
     }
     if (win(o_class)) {
-        return { score: 0.2};
+        return { score: 2};
     }
     if (isTie()) {
         return { score: 0 };
@@ -181,7 +181,7 @@ const minimaxWithAlphaBetaPruning = (board, player, alpha, beta) => {
     let bestScore, bestMove;
     if (player === o_class) {
         bestScore = -Infinity;
-        for (let i = 0; i < board.length; i++) {
+        for (let i = 1; i < board.length; i++) {
             if (!board[i].classList.contains(x_class) && !board[i].classList.contains(o_class)) {
                 board[i].classList.add(player);
                 let score = minimaxWithAlphaBetaPruning([...board], x_class, alpha, beta).score;
@@ -198,7 +198,7 @@ const minimaxWithAlphaBetaPruning = (board, player, alpha, beta) => {
         }
     } else {
         bestScore = Infinity;
-        for (let i = 0; i < board.length; i++) {
+        for (let i = 1; i < board.length; i++) {
             if (!board[i].classList.contains(x_class) && !board[i].classList.contains(o_class)) {
                 board[i].classList.add(player);
                 let score = minimaxWithAlphaBetaPruning([...board], o_class, alpha, beta).score;
@@ -219,11 +219,18 @@ const minimaxWithAlphaBetaPruning = (board, player, alpha, beta) => {
 const aiMove = () => {
     const emptyCells = [...cells].filter(cell => !cell.classList.contains(x_class) && !cell.classList.contains(o_class));
     if (emptyCells.length === 0) return;
-    if(playerOName=='Computer'){
-    const bestMoveIndex = minimaxWithAlphaBetaPruning([...cells], o_class, -2, 2).index;  
-    const cell = cells[bestMoveIndex];
-    placeMark(cell, o_class);
-    
+
+    if (playerOName == 'Computer') {
+        if (Math.random() < 0.5) {
+            const randomIndex = Math.floor(Math.random() * emptyCells.length);
+            const randomCell = emptyCells[randomIndex];
+            placeMark(randomCell, o_class);
+        } else {
+            const bestMoveIndex = minimaxWithAlphaBetaPruning([...cells], o_class, -2, 2).index;
+            const cell = cells[bestMoveIndex];
+            placeMark(cell, o_class);
+        }
+
         if (win(o_class)) {
             endGame(false);
         } else if (isTie()) {
@@ -232,21 +239,29 @@ const aiMove = () => {
             swapTurn2();
             placeHover();
         }
-    }else{
-    const bestMoveIndex = minimaxWithAlphaBetaPruning([...cells], x_class, -2, 2).index; 
-    const cell = cells[bestMoveIndex];
-    placeMark(cell, x_class);
-    
-    if (win(x_class)) {
-        endGame(false);
-    } else if (isTie()) {
-        endGame(true);
     } else {
-        swapTurn2();
-        placeHover();
-    }
+        if (Math.random() < 0.5) {
+            const randomIndex = Math.floor(Math.random() * emptyCells.length);
+            const randomCell = emptyCells[randomIndex];
+            placeMark(randomCell, x_class);
+        } else {
+            const bestMoveIndex = minimaxWithAlphaBetaPruning([...cells], x_class, -2, 2).index;
+            const cell = cells[bestMoveIndex];
+            placeMark(cell, x_class);
+        }
+
+        if (win(x_class)) {
+            endGame(false);
+        } else if (isTie()) {
+            endGame(true);
+        } else {
+            swapTurn2();
+            placeHover();
+        }
     }
 };
+
+
 
 
 

@@ -64,3 +64,14 @@ playerNamesForm.addEventListener('submit', (event) => {
         window.location.href = "impossibleAI.html";
     }
 });
+playerXInput.addEventListener('click', () => {
+    playerXInput.value = ""; // Clear the value of Player X input
+    const playerOName = playerOInput.value.trim();
+    updateInputValues("", playerOName); // Update Player O input values
+});
+
+playerOInput.addEventListener('click', () => {
+    playerOInput.value = ""; // Clear the value of Player O input
+    const playerXName = playerXInput.value.trim();
+    updateInputValues(playerXName, ""); // Update Player X input values
+});
