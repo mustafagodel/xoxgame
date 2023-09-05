@@ -10,9 +10,9 @@ const comb = [
     [0, 4, 8],
     [2, 4, 6],
 ];
+
 const playerXScoreElement = document.getElementById('playerXScore');
 const playerOScoreElement = document.getElementById('playerOScore');
-
 
 const playerXName = localStorage.getItem('playerXName');
 const playerOName = localStorage.getItem('playerOName');
@@ -21,7 +21,6 @@ let playerOScore = parseInt(localStorage.getItem('playerOScore')) || 0;
 
 playerXScoreElement.textContent = `${playerXName}: ${playerXScore}`;
 playerOScoreElement.textContent = `${playerOName}: ${playerOScore}`;
-
 
 const board = document.getElementById('board');
 const cells = document.querySelectorAll('.cell');
@@ -33,22 +32,21 @@ let turn;
 const swapTurn = () => {
     turn = !turn;
 };
-const swapTurn2 = () => {
-    let turn=true;
-    turn = !turn;
-};
+
 const placeMark = (cell, currentClass) => {
     cell.classList.add(currentClass);
 };
+
 const placeHover = () => {
     board.classList.remove(x_class);
     board.classList.remove(o_class);
     if (turn) board.classList.add(o_class);
     else board.classList.add(x_class);
 };
+
 const endGame = (draw) => {
     if (draw) {
-        resultText.innerText = 'Tie Game';
+        resultText.innerText = 'Berabere';
     } else {
         let winnerName = '';
 
@@ -61,7 +59,7 @@ const endGame = (draw) => {
         if (winnerName !== '') {
             const winnerScoreElement = winnerName === playerXName ? playerXScoreElement : playerOScoreElement;
 
-            resultText.innerText = `${winnerName} Wins The Round`;
+            resultText.innerText = `${winnerName} Turu Kazandı`;
 
             if (winnerName === playerXName) {
                 playerXScore++;
@@ -78,7 +76,6 @@ const endGame = (draw) => {
         }
     }
     result.classList.add('show');
-   
 };
 
 const endFinalGame = () => {
@@ -99,20 +96,16 @@ const endFinalGame = () => {
     }
 
     if (winnerName !== '') {
-        resultText.innerText = `${winnerName} Wins the Game!`;
+        resultText.innerText = `${winnerName} Oyunu Kazandı!`;
         result.classList.add('show');
     }
 };
-
-
-
 
 const isTie = () => {
     return [...cells].every(cell => {
         return cell.classList.contains(x_class) || cell.classList.contains(o_class);
     });
 };
-
 
 const win = (currentClass) => {
     return comb.some(combination => {
@@ -134,7 +127,7 @@ const Click = (e) => {
     } else if (isTie()) {
         endGame(true);
     } else {
-        swapTurn2();
+        swapTurn();
         aiMove();
     }
 };
@@ -148,67 +141,50 @@ const resetGame = () => {
     });
 };
 
+const getRandomEmptyCell = () => {
+    const emptyCells = [...cells].filter(cell => !cell.classList.contains(x_class) && !cell.classList.contains(o_class));
+    if (emptyCells.length === 0) return null;
+
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    return emptyCells[randomIndex];
+};
+
+const aiMove = () => {
+    const currentClass = turn ? o_class : x_class;
+    let moveMade = false;
+
+
+    if (!moveMade) {
+        const randomCell = getRandomEmptyCell();
+        if (randomCell) {
+            placeMark(randomCell, currentClass);
+        }
+    }
+
+    if (win(currentClass)) {
+        endGame(false);
+    } else if (isTie()) {
+        endGame(true);
+    } else {
+        swapTurn();
+        placeHover();
+    }
+};
+
 const startGame = () => {
-   if( playerXName === 'Computer') {
-    playerXName==playerOName;
-   turn = playerXName;
-    resetGame();
-    placeHover();
-    result.classList.remove('show');
-    
-}
-else{
-    turn = false;
-    resetGame();
-    placeHover();
-    result.classList.remove('show');
-}
+    if (playerXName === 'Computer') {
+        turn = false; 
+        resetGame();
+        placeHover();
+        result.classList.remove('show');
+        aiMove(); 
+    } else {
+        turn = false;
+        resetGame();
+        placeHover();
+        result.classList.remove('show');
+    }
 };
 
 startGame();
 restartButton.addEventListener('click', startGame);
-const aiMove = () => {
-    const emptyCells = [...cells].filter(cell => !cell.classList.contains(x_class) && !cell.classList.contains(o_class));
-    if (emptyCells.length === 0) return;
-    
-    if (playerOName == 'Computer') {
-        const randomIndex = Math.floor(Math.random() * emptyCells.length);
-        const randomCell = emptyCells[randomIndex];
-        placeMark(randomCell, o_class);
-
-        if (win(o_class)) {
-            endGame(false);
-        } else if (isTie()) {
-            endGame(true);
-        } else {
-            swapTurn2();
-            placeHover();
-        }
-    } else {
-        const randomIndex = Math.floor(Math.random() * emptyCells.length);
-        const randomCell = emptyCells[randomIndex];
-        placeMark(randomCell, x_class);
-
-        if (win(x_class)) {
-            endGame(false);
-        } else if (isTie()) {
-            endGame(true);
-        } else {
-            swapTurn2();
-            placeHover();
-        }
-    }
-};
-
-
-
-
-
-
-
-
-
-
-
-
-    
