@@ -65,13 +65,13 @@ playerNamesForm.addEventListener('submit', (event) => {
     }
 });
 playerXInput.addEventListener('click', () => {
-    playerXInput.value = ""; // Clear the value of Player X input
+    playerXInput.value = ""; 
     const playerOName = playerOInput.value.trim();
-    updateInputValues("", playerOName); // Update Player O input values
+    updateInputValues("", playerOName); 
 });
 
 playerOInput.addEventListener('click', () => {
-    playerOInput.value = ""; // Clear the value of Player O input
+    playerOInput.value = ""; 
     const playerXName = playerXInput.value.trim();
-    updateInputValues(playerXName, ""); // Update Player X input values
+    updateInputValues(playerXName, ""); 
 });

@@ -46,7 +46,7 @@ const placeHover = () => {
 
 const endGame = (draw) => {
     if (draw) {
-        resultText.innerText = 'Berabere';
+        resultText.innerText = 'Draw';
     } else {
         let winnerName = '';
 
@@ -59,7 +59,7 @@ const endGame = (draw) => {
         if (winnerName !== '') {
             const winnerScoreElement = winnerName === playerXName ? playerXScoreElement : playerOScoreElement;
 
-            resultText.innerText = `${winnerName} Turu Kazandı`;
+            resultText.innerText = `${winnerName} Round Wins`;
 
             if (winnerName === playerXName) {
                 playerXScore++;
@@ -96,7 +96,7 @@ const endFinalGame = () => {
     }
 
     if (winnerName !== '') {
-        resultText.innerText = `${winnerName} Oyunu Kazandı!`;
+        resultText.innerText = `${winnerName} Game Wins!`;
         result.classList.add('show');
     }
 };
